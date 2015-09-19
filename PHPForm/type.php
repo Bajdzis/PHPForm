@@ -12,9 +12,16 @@ abstract class InputType
 		$additionalInfo = array();
 	}
 	
-	function setName($name)
+	function setName($name, $parent = null)
 	{
-		$this->name = $name;
+		if($parent === null)
+		{
+			$this->name = $name;
+		}
+		else
+		{
+			$this->name = $parent.'['.$name.']';
+		}
 	}
 	
 	function setType($name)
