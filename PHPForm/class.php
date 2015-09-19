@@ -40,6 +40,7 @@ class PHPForm
 			{
 				$obj = new $this->inputTypes[$type];
 				$obj->setName($name,$parent);
+				$obj->setType($type);
 				$this->inputs[] = $obj;
 			}
 			
@@ -49,12 +50,12 @@ class PHPForm
 	
 	function draw()
 	{
-		$s0 = '<form action="" method="post">';
+		$s0 = '';
 		foreach($this->inputs as $input)
 		{
 			$s0 .= $input->draw();
 		}
-		return $s0.'<input type="submit" value="send" /></form>';
+		return $s0;
 	}
 	
 	function addType($name,$class)

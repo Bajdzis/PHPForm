@@ -3,12 +3,14 @@ abstract class InputType
 {
 	var $name;
 	var $type;
+	var $parent;
 	var $additionalInfo;
 	
 	function __construct()
 	{
 		$this->name = 'unnamed';
 		$this->type = 'input';
+		$this->parent = array();
 		$additionalInfo = array();
 	}
 	
@@ -22,6 +24,7 @@ abstract class InputType
 		{
 			$parent = array_reverse($parent);
 			$parent[] = $name;
+			$this->parent = $parent;
 			$this->name = $parent[0];
 			unset($parent[0]);
 			foreach($parent as $value)
@@ -46,6 +49,12 @@ abstract class InputType
 		{
 			$this->additionalInfo[$index] = $additionalInfo;
 		}
+	}
+	
+	function validate()
+	{
+		
+		
 	}
 	
 	function draw()
