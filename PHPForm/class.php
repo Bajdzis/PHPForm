@@ -23,7 +23,6 @@ class PHPForm
 		if (($parent !== null) && !is_string(key($inputs)))
 		{
 			$obj = new $this->inputTypes['select'];
-			echo$parent[count($parent)-1];
 			$obj->setName($parent[count($parent)-1],$parent);
 			$obj->setAdditionalInfo($inputs);
 			$this->inputs[] = $obj;
@@ -56,6 +55,18 @@ class PHPForm
 			$s0 .= $input->draw();
 		}
 		return $s0;
+	}
+	
+	function validate($array)
+	{
+		foreach($this->inputs as $input)
+		{
+			if(!$input->validate($array))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	function addType($name,$class)

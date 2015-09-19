@@ -51,10 +51,20 @@ abstract class InputType
 		}
 	}
 	
-	function validate()
+	function validate($array)
 	{
-		
-		
+		foreach($this->parent as $value)
+		{
+			if(isset($array[$value]))
+			{
+				$array = $array[$value];
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	function draw()
