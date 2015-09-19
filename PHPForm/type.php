@@ -14,7 +14,7 @@ abstract class InputType
 	
 	function setName($name, $parent = null)
 	{
-		if($parent === null or count($parent) <= 1)
+		if($parent === null)
 		{
 			$this->name = $name;
 		}
