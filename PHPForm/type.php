@@ -14,13 +14,20 @@ abstract class InputType
 	
 	function setName($name, $parent = null)
 	{
-		if($parent === null)
+		if($parent === null or count($parent) <= 1)
 		{
 			$this->name = $name;
 		}
 		else
 		{
-			$this->name = $parent.'['.$name.']';
+			$parent = array_reverse($parent);
+			$parent[] = $name;
+			$this->name = $parent[0];
+			unset($parent[0]);
+			foreach($parent as $value)
+			{
+				$this->name .= '['.$value.']';
+			}
 		}
 	}
 	

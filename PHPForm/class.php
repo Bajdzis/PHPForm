@@ -19,22 +19,22 @@ class PHPForm
 	
 	function create($inputs, $parent = null)
 	{
+		reset($inputs);
+		if (($parent !== null) && !is_string(key($inputs)))
+		{
+			$obj = new $this->inputTypes['select'];
+			echo$parent[count($parent)-1];
+			$obj->setName($parent[count($parent)-1],$parent);
+			$obj->setAdditionalInfo($inputs);
+			$this->inputs[] = $obj;
+			return 0;
+		}
+			
 		foreach($inputs as $name => $type)
 		{
-			if(is_array($type)){
-				reset($type);
-				if(is_string(key($type)))
-				{
-					$this->create($type, $name);
-				}
-				else
-				{
-					$obj = new $this->inputTypes['select'];
-					$obj->setName($name,$parent);
-					$obj->setAdditionalInfo($type);
-					$this->inputs[] = $obj;
-				}
-	
+			if(is_array($type))
+			{
+				$this->create($type, $this->addParent($parent, $name));
 			}
 			else
 			{
@@ -66,6 +66,17 @@ class PHPForm
 		$this->inputTypes[$name] = $class;
 		unset($obj);
 		return true;
+	}
+	
+	function addParent($currentParent, $addParent)
+	{
+		if($currentParent === null)
+		{
+			$currentParent = array();
+		}
+		$currentParent[] = $addParent;
+		return $currentParent;
+		
 	}
 }
 ?>
