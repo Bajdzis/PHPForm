@@ -11,7 +11,7 @@ spl_autoload_register(function ($class)
 
 PHPForm\Form::addType('text','Input');
 PHPForm\Form::addType('password','Input');
-PHPForm\Form::addType('email','Input');
+PHPForm\Form::addType('email','Email');
 PHPForm\Form::addType('select','InputSelect');
 
 ?>
