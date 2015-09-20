@@ -1,5 +1,7 @@
 <?php
-class Input extends InputType
+namespace PHPForm\Type;
+
+class Input extends \PHPForm\AbstractInput
 {
 
 }

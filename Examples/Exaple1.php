@@ -1,5 +1,5 @@
 <?php
-include('../PHPForm/class.php');
+include('../PHPForm/autoload.php');
 
 $form_array = array(
 	'name' => 'text',
@@ -11,7 +11,7 @@ $form_array = array(
 	)
 );
 
-$form = new PHPForm();
+$form = new PHPForm\Form();
 
 $form->create($form_array);
 
