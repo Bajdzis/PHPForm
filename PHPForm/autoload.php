@@ -1,13 +1,6 @@
 <?php
-spl_autoload_register(function ($class)
-{
-	if(strpos($class, 'PHPForm\\') !== 0)
-	{
-		return false;
-	}
-	require(dirname(__FILE__).'\\'.substr($class,8).'.php');
-	return true;
-});
+
+require_once(dirname(dirname(__FILE__)).'/vendor/autoload.php');
 
 PHPForm\Form::addType('text','Input');
 PHPForm\Form::addType('password','Input');
