@@ -1,7 +1,7 @@
 <?php
-namespace PHPForm\Type;
+namespace Bajdzis\PHPForm\Type;
 
-class InputSelect extends \PHPForm\AbstractInput
+class InputSelect extends \Bajdzis\PHPForm\AbstractInput
 {
 	function __construct()
 	{

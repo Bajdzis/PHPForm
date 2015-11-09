@@ -2,9 +2,10 @@
 
 require_once(dirname(dirname(__FILE__)).'/vendor/autoload.php');
 
-PHPForm\Form::addType('text','Input');
-PHPForm\Form::addType('password','Input');
-PHPForm\Form::addType('email','Email');
-PHPForm\Form::addType('select','InputSelect');
+Bajdzis\PHPForm\Form::addType('text','Input');
+Bajdzis\PHPForm\Form::addType('password','Input');
+Bajdzis\PHPForm\Form::addType('email','Email');
+Bajdzis\PHPForm\Form::addType('select','InputSelect');
+Bajdzis\PHPForm\Form::addType('radio','Radio');
 
 ?>

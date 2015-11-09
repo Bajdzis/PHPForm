@@ -1,31 +1,23 @@
-<?php 
-namespace PHPForm;
+<?php
+namespace Bajdzis\PHPForm;
 
-use PHPForm\Type;
+use Bajdzis\PHPForm\Type;
+use Bajdzis\PHPForm\Lang;
 
 class Form
 {
 	static $inputTypes = array();
+
 	var $inputs;
-	
-	function __construct()
+
+	function __construct($language = 'English')
 	{
 		$inputs = array();
+		Lang\Language::setLanguage($language);
 	}
-	
+
 	function create($inputs, $parent = null)
 	{
-		reset($inputs);
-		if (($parent !== null) && !is_string(key($inputs)))
-		{
-			$className = self::$inputTypes['select'];
-			$obj = new $className;
-			$obj->setName($parent[count($parent)-1],$parent);
-			$obj->setAdditionalInfo($inputs);
-			$this->inputs[] = $obj;
-			return 0;
-		}
-			
 		foreach($inputs as $name => $type)
 		{
 			if(is_array($type))
@@ -34,17 +26,17 @@ class Form
 			}
 			else
 			{
-				$className = self::$inputTypes[$type];
+				$typeArray = Helper::splitType($type);
+				$className = self::$inputTypes[$typeArray["name"]];
 				$obj = new $className;
 				$obj->setName($name,$parent);
-				$obj->setType($type);
+				$obj->setType($typeArray["name"]);
+				$obj->setAdditionalInfo($typeArray["option"]);
 				$this->inputs[] = $obj;
 			}
-			
 		}
-		
 	}
-	
+
 	function draw()
 	{
 		$s0 = '';
@@ -54,7 +46,7 @@ class Form
 		}
 		return $s0;
 	}
-	
+
 	function isSend($array)
 	{
 		foreach($this->inputs as $input)
@@ -66,7 +58,7 @@ class Form
 		}
 		return true;
 	}
-	
+
 	function validate($array)
 	{
 		foreach($this->inputs as $input)
@@ -78,18 +70,18 @@ class Form
 		}
 		return true;
 	}
-	
+
 	static function addType($name,$class)
 	{
 		assert (!isset(self::$inputTypes[$name]), 'Type '.$name.' is already defined');
-		$class = '\PHPForm\\Type\\'.$class;
+		$class = '\\Bajdzis\\PHPForm\\Type\\'.$class;
 		$obj = new $class;
-		assert (get_parent_class($obj) == 'PHPForm\\AbstractInput', $class.' class is not a child PHPForm\\AbstractInput');
+		assert (get_parent_class($obj) == 'Bajdzis\\PHPForm\\AbstractInput', $class.' class is not a child PHPForm\\AbstractInput');
 		self::$inputTypes[$name] = $class;
 		unset($obj);
 		return true;
 	}
-	
+
 	function addParent($currentParent, $addParent)
 	{
 		if($currentParent === null)
@@ -98,7 +90,7 @@ class Form
 		}
 		$currentParent[] = $addParent;
 		return $currentParent;
-		
+
 	}
 }
 ?>

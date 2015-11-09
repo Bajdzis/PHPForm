@@ -1,5 +1,5 @@
 {
     "autoload": {
-        "psr-4": {"PHPForm\\": "PHPForm"}
+        "psr-4": {"Bajdzis\\PHPForm\\": "PHPForm"}
     }
 }
